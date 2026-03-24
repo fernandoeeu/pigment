@@ -1,0 +1,3 @@
+{
+  "extends": "@color-game/config/tsconfig.base.json"
+}
