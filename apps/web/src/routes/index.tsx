@@ -1,34 +1,26 @@
 import { createFileRoute } from "@tanstack/react-router";
+import HeroSection from "../components/landing/hero-section";
+import HowItWorks from "../components/landing/how-it-works";
+import ModesSection from "../components/landing/modes-section";
 
 export const Route = createFileRoute("/")({
-  component: HomeComponent,
+  component: HomePage,
 });
 
-const TITLE_TEXT = `
- ██████╗ ███████╗████████╗████████╗███████╗██████╗
- ██╔══██╗██╔════╝╚══██╔══╝╚══██╔══╝██╔════╝██╔══██╗
- ██████╔╝█████╗     ██║      ██║   █████╗  ██████╔╝
- ██╔══██╗██╔══╝     ██║      ██║   ██╔══╝  ██╔══██╗
- ██████╔╝███████╗   ██║      ██║   ███████╗██║  ██║
- ╚═════╝ ╚══════╝   ╚═╝      ╚═╝   ╚══════╝╚═╝  ╚═╝
-
- ████████╗    ███████╗████████╗ █████╗  ██████╗██╗  ██╗
- ╚══██╔══╝    ██╔════╝╚══██╔══╝██╔══██╗██╔════╝██║ ██╔╝
-    ██║       ███████╗   ██║   ███████║██║     █████╔╝
-    ██║       ╚════██║   ██║   ██╔══██║██║     ██╔═██╗
-    ██║       ███████║   ██║   ██║  ██║╚██████╗██║  ██╗
-    ╚═╝       ╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝
- `;
-
-function HomeComponent() {
+function HomePage() {
   return (
-    <div className="container mx-auto max-w-3xl px-4 py-2">
-      <pre className="overflow-x-auto font-mono text-sm">{TITLE_TEXT}</pre>
-      <div className="grid gap-6">
-        <section className="rounded-lg border p-4">
-          <h2 className="mb-2 font-medium">API Status</h2>
-        </section>
+    <div className="overflow-y-auto">
+      <HeroSection />
+      <div className="mx-auto max-w-5xl">
+        <HowItWorks />
+        <ModesSection />
       </div>
+      {/* Footer */}
+      <footer className="flex items-center justify-center border-t border-white/5 py-8">
+        <span className="font-body text-xs text-white/20">
+          Pigment — A color memory game
+        </span>
+      </footer>
     </div>
   );
 }
