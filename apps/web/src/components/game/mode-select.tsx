@@ -5,10 +5,10 @@ import {
   Heart,
   Infinity,
   Skull,
-  Timer,
   TrendingUp,
 } from "lucide-react";
 import { useState } from "react";
+import { useSettings } from "../../hooks/use-settings";
 import type {
   Difficulty,
   EndCondition,
@@ -62,6 +62,7 @@ const difficulties: Array<{
 ];
 
 export default function ModeSelect({ onStart }: ModeSelectProps) {
+  const { colorVisionMode } = useSettings();
   const [mode, setMode] = useState<GameMode>("classic");
   const [endCondition, setEndCondition] = useState<EndCondition>("lives");
   const [difficulty, setDifficulty] = useState<Difficulty>("medium");
@@ -191,7 +192,7 @@ export default function ModeSelect({ onStart }: ModeSelectProps) {
       {/* Start Button */}
       <Button
         size="lg"
-        onClick={() => onStart({ mode, endCondition, difficulty })}
+        onClick={() => onStart({ mode, endCondition, difficulty, colorVisionMode })}
         className="w-full rounded-xl bg-amber-400 py-6 font-display text-base font-bold tracking-wide text-black transition-all hover:bg-amber-300 hover:shadow-[0_0_30px_-5px] hover:shadow-amber-400/40"
       >
         Start Game

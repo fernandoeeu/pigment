@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import SettingsDialog from "./settings-dialog";
 
 export default function Header() {
   const links = [
@@ -20,6 +21,7 @@ export default function Header() {
             </Link>
           ))}
         </nav>
+        <SettingsDialog />
       </div>
       <hr className="border-white/5" />
     </div>

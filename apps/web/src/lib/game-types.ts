@@ -13,6 +13,7 @@ export interface GameConfig {
   mode: GameMode;
   endCondition: EndCondition;
   difficulty: Difficulty;
+  colorVisionMode: "normal" | "protanopia" | "deuteranopia";
 }
 
 export interface RoundState {
