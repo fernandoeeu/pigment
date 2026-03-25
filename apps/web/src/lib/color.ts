@@ -1,4 +1,5 @@
 import type { RGB } from "./game-types";
+import type { ColorVisionMode } from "./settings";
 import {
   COLOR_LIGHTNESS_MAX,
   COLOR_LIGHTNESS_MIN,
@@ -121,8 +122,39 @@ export function hslToRgb(h: number, s: number, l: number): RGB {
 
 // --- Color Generation (curated) ---
 
-export function generateRandomColor(): RGB {
-  const h = Math.random() * 360;
+// Hue ranges safe for red-green color blindness (protanopia & deuteranopia).
+// These people see the world mostly in blues and yellows — avoid reds/greens.
+const SAFE_HUE_RANGES_RED_GREEN: Array<[number, number]> = [
+  [30, 75], // yellows / oranges (distinguishable)
+  [190, 280], // blues / purples (distinguishable)
+];
+
+function randomHueForVisionMode(mode: ColorVisionMode): number {
+  if (mode === "normal") {
+    return Math.random() * 360;
+  }
+
+  // protanopia & deuteranopia: pick from safe ranges weighted by range size
+  const ranges = SAFE_HUE_RANGES_RED_GREEN;
+  const totalSpan = ranges.reduce(
+    (sum, [min, max]) => sum + (max - min),
+    0,
+  );
+  let roll = Math.random() * totalSpan;
+
+  for (const [min, max] of ranges) {
+    const span = max - min;
+    if (roll < span) return min + roll;
+    roll -= span;
+  }
+
+  return ranges[0]![0] + Math.random() * (ranges[0]![1] - ranges[0]![0]);
+}
+
+export function generateRandomColor(
+  visionMode: ColorVisionMode = "normal",
+): RGB {
+  const h = randomHueForVisionMode(visionMode);
   const s =
     COLOR_SATURATION_MIN +
     Math.random() * (COLOR_SATURATION_MAX - COLOR_SATURATION_MIN);

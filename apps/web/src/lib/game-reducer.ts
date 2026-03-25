@@ -64,7 +64,9 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         round: 1,
         timeAllowed,
         currentRound: {
-          targetColor: generateRandomColor(),
+          targetColor: generateRandomColor(
+            action.config.colorVisionMode,
+          ),
           playerColor: { r: 128, g: 128, b: 128 },
           score: 0,
           timeAllowed,
@@ -153,7 +155,9 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         phase: "memorize",
         timeAllowed,
         currentRound: {
-          targetColor: generateRandomColor(),
+          targetColor: generateRandomColor(
+            nextState.config?.colorVisionMode ?? "normal",
+          ),
           playerColor: { r: 128, g: 128, b: 128 },
           score: 0,
           timeAllowed,
