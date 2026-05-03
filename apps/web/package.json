@@ -8,6 +8,8 @@
     "dev": "vite dev"
   },
   "dependencies": {
+    "@clerk/tanstack-react-start": "^1.2.0",
+    "@clerk/ui": "^1.7.0",
     "@color-game/env": "workspace:*",
     "@color-game/ui": "workspace:*",
     "@libsql/client": "catalog:",

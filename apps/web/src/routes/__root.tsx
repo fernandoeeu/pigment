@@ -1,3 +1,5 @@
+import { ClerkProvider } from "@clerk/tanstack-react-start";
+import { dark } from "@clerk/ui/themes";
 import { Toaster } from "@color-game/ui/components/sonner";
 import { HeadContent, Outlet, Scripts, createRootRouteWithContext } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
@@ -50,21 +52,34 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
 
 function RootDocument() {
   return (
-    <html lang="en" className="dark pigment-grain">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        <SettingsProvider>
-          <div className="grid h-svh grid-rows-[auto_1fr]">
-            <Header />
-            <Outlet />
-          </div>
-          <Toaster richColors />
-        </SettingsProvider>
-        <TanStackRouterDevtools position="bottom-left" />
-        <Scripts />
-      </body>
-    </html>
+    <ClerkProvider
+      signInUrl="/sign-in"
+      signUpUrl="/sign-up"
+      afterSignOutUrl="/"
+      appearance={{
+        theme: dark,
+        variables: {
+          fontFamily: '"DM Sans", system-ui, sans-serif',
+          fontFamilyButtons: '"DM Sans", system-ui, sans-serif',
+        },
+      }}
+    >
+      <html lang="en" className="dark pigment-grain">
+        <head>
+          <HeadContent />
+        </head>
+        <body>
+          <SettingsProvider>
+            <div className="grid h-svh grid-rows-[auto_1fr]">
+              <Header />
+              <Outlet />
+            </div>
+            <Toaster richColors />
+          </SettingsProvider>
+          <TanStackRouterDevtools position="bottom-left" />
+          <Scripts />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
